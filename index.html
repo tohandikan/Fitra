@@ -150,7 +150,7 @@
 
     <script>
         // Konfigurasi - Ganti dengan URL Google Apps Script Anda
-        const GOOGLE_SCRIPT_URL = 'GANTI_DENGAN_URL_GOOGLE_APPS_SCRIPT_ANDA';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzD-a6rejnLJ3B1IKtPTam37kOyWERREH6Dx9PpSDD8u2gbMzW7-9sDQ4e6DV9Rj5uS/exec';
 
         // Price mapping
         const prices = {
@@ -241,7 +241,7 @@
 
             try {
                 // Send to Google Sheets (uncomment when you have the script URL
-                const response = await fetch(https://script.google.com/macros/s/AKfycbzDU6BjTTYajWpdp6a8JWXnnGF77BZVDPwZ8gE5EOOh2NLeNwTL6A2iEPsEQkwUYHO1/exec, {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
