@@ -3,308 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Turnamen FREE FIRE</title>
+    <title>Toko Baju Online - Pemesanan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        .ff-title { font-family: 'Orbitron', monospace; }
-        .ff-text { font-family: 'Inter', sans-serif; }
-        
-        .fire-gradient {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #ffcd3c 50%, #ff6b35 75%, #e74c3c 100%);
-        }
-        
-        .dark-gradient {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        }
-        
-        .glow-effect {
-            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
-        }
-        
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .success-animation {
-            animation: successPulse 0.6s ease-out;
-        }
-        
-        @keyframes successPulse {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-shadow { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
     </style>
 </head>
-<body class="dark-gradient min-h-screen text-white ff-text">
-    <!-- Header -->
-    <header class="fire-gradient py-6 shadow-2xl">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="ff-title text-4xl md:text-6xl font-black text-white mb-2 pulse-animation">
-                🔥 FREE FIRE TOURNAMENT 🔥
-            </h1>
-            <p class="text-xl md:text-2xl font-semibold text-yellow-100">
-                DAFTAR SEKARANG & MENANGKAN HADIAH JUTAAN RUPIAH!
-            </p>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-12">
-        <!-- Tournament Info -->
-        <div class="bg-gray-800 rounded-2xl p-8 mb-12 glow-effect">
-            <div class="grid md:grid-cols-3 gap-8 text-center">
-                <div class="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl p-6">
-                    <div class="text-3xl mb-2">🏆</div>
-                    <h3 class="ff-title text-xl font-bold mb-2">HADIAH UTAMA</h3>
-                    <p class="text-2xl font-black">Rp 5.000.000</p>
-                </div>
-                <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6">
-                    <div class="text-3xl mb-2">📅</div>
-                    <h3 class="ff-title text-xl font-bold mb-2">TANGGAL</h3>
-                    <p class="text-lg font-semibold">25 Desember 2024</p>
-                </div>
-                <div class="bg-gradient-to-br from-green-500 to-teal-600 rounded-xl p-6">
-                    <div class="text-3xl mb-2">👥</div>
-                    <h3 class="ff-title text-xl font-bold mb-2">MAX TEAM</h3>
-                    <p class="text-2xl font-black">64 SQUAD</p>
-                </div>
-            </div>
+<body class="gradient-bg min-h-screen py-8">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">👕 Toko Baju Online</h1>
+            <p class="text-white/80 text-lg">Pesan baju favorit Anda dengan mudah</p>
         </div>
 
-        <!-- Registration Form -->
-        <div class="bg-gray-800 rounded-2xl p-8 glow-effect">
-            <h2 class="ff-title text-3xl font-bold text-center mb-8 fire-gradient bg-clip-text text-transparent">
-                FORM PENDAFTARAN SQUAD
-            </h2>
-            
-            <form id="registrationForm" class="space-y-6">
-                <!-- Team Info -->
-                <div class="bg-gray-700 rounded-xl p-6">
-                    <h3 class="ff-title text-xl font-bold mb-4 text-yellow-400">📋 INFORMASI TEAM</h3>
+        <!-- Main Form Card -->
+        <div class="bg-white rounded-2xl card-shadow p-8 mb-8">
+            <form id="orderForm" class="space-y-6">
+                <!-- Customer Info Section -->
+                <div class="border-b pb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">📋 Informasi Pelanggan</h2>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-semibold mb-2">Nama Squad *</label>
-                            <input type="text" name="squadName" required 
-                                   class="w-full px-4 py-3 bg-gray-600 rounded-lg border border-gray-500 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 text-white">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap *</label>
+                            <input type="text" id="customerName" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold mb-2">Nama Captain *</label>
-                            <input type="text" name="captainName" required 
-                                   class="w-full px-4 py-3 bg-gray-600 rounded-lg border border-gray-500 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 text-white">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold mb-2">WhatsApp Captain *</label>
-                            <input type="tel" name="captainPhone" required 
-                                   class="w-full px-4 py-3 bg-gray-600 rounded-lg border border-gray-500 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 text-white"
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nomor WhatsApp *</label>
+                            <input type="tel" id="phoneNumber" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                    placeholder="08xxxxxxxxxx">
                         </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Alamat Lengkap *</label>
+                            <textarea id="address" required rows="3"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                      placeholder="Jalan, RT/RW, Kelurahan, Kecamatan, Kota, Kode Pos"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Selection -->
+                <div class="border-b pb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">👔 Pilih Produk</h2>
+                    <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-semibold mb-2">Email Captain *</label>
-                            <input type="email" name="captainEmail" required 
-                                   class="w-full px-4 py-3 bg-gray-600 rounded-lg border border-gray-500 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 text-white">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Baju *</label>
+                            <select id="productType" required 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                <option value="">Pilih jenis baju</option>
+                                <option value="Kaos Polos">Kaos Polos - Rp 75.000</option>
+                                <option value="Kaos Sablon">Kaos Sablon - Rp 95.000</option>
+                                <option value="Kemeja Formal">Kemeja Formal - Rp 150.000</option>
+                                <option value="Kemeja Casual">Kemeja Casual - Rp 120.000</option>
+                                <option value="Hoodie">Hoodie - Rp 180.000</option>
+                                <option value="Jaket">Jaket - Rp 200.000</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Ukuran *</label>
+                            <select id="size" required 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                <option value="">Pilih ukuran</option>
+                                <option value="S">S (Small)</option>
+                                <option value="M">M (Medium)</option>
+                                <option value="L">L (Large)</option>
+                                <option value="XL">XL (Extra Large)</option>
+                                <option value="XXL">XXL (Double XL)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Warna *</label>
+                            <select id="color" required 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                <option value="">Pilih warna</option>
+                                <option value="Putih">Putih</option>
+                                <option value="Hitam">Hitam</option>
+                                <option value="Merah">Merah</option>
+                                <option value="Biru">Biru</option>
+                                <option value="Hijau">Hijau</option>
+                                <option value="Kuning">Kuning</option>
+                                <option value="Abu-abu">Abu-abu</option>
+                                <option value="Navy">Navy</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah *</label>
+                            <input type="number" id="quantity" required min="1" value="1"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
                         </div>
                     </div>
                 </div>
 
-                <!-- Player Details -->
-                <div class="bg-gray-700 rounded-xl p-6">
-                    <h3 class="ff-title text-xl font-bold mb-4 text-yellow-400">👥 DATA PEMAIN</h3>
-                    
-                    <!-- Player 1 (Captain) -->
-                    <div class="mb-6 p-4 bg-gray-600 rounded-lg border-l-4 border-yellow-500">
-                        <h4 class="font-bold mb-3 text-yellow-300">Player 1 (Captain)</h4>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <input type="text" name="player1Name" required placeholder="Nama Lengkap *" 
-                                   class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                            <input type="text" name="player1GameId" required placeholder="Game ID *" 
-                                   class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                            <input type="text" name="player1Nickname" required placeholder="Nickname *" 
-                                   class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                        </div>
-                    </div>
-
-                    <!-- Players 2-4 -->
-                    <div id="playersContainer">
-                        <!-- Player 2 -->
-                        <div class="mb-4 p-4 bg-gray-600 rounded-lg">
-                            <h4 class="font-bold mb-3">Player 2</h4>
-                            <div class="grid md:grid-cols-3 gap-4">
-                                <input type="text" name="player2Name" required placeholder="Nama Lengkap *" 
-                                       class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                                <input type="text" name="player2GameId" required placeholder="Game ID *" 
-                                       class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                                <input type="text" name="player2Nickname" required placeholder="Nickname *" 
-                                       class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                            </div>
-                        </div>
-
-                        <!-- Player 3 -->
-                        <div class="mb-4 p-4 bg-gray-600 rounded-lg">
-                            <h4 class="font-bold mb-3">Player 3</h4>
-                            <div class="grid md:grid-cols-3 gap-4">
-                                <input type="text" name="player3Name" required placeholder="Nama Lengkap *" 
-                                       class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                                <input type="text" name="player3GameId" required placeholder="Game ID *" 
-                                       class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                                <input type="text" name="player3Nickname" required placeholder="Nickname *" 
-                                       class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                            </div>
-                        </div>
-
-                        <!-- Player 4 -->
-                        <div class="mb-4 p-4 bg-gray-600 rounded-lg">
-                            <h4 class="font-bold mb-3">Player 4</h4>
-                            <div class="grid md:grid-cols-3 gap-4">
-                                <input type="text" name="player4Name" required placeholder="Nama Lengkap *" 
-                                       class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                                <input type="text" name="player4GameId" required placeholder="Game ID *" 
-                                       class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                                <input type="text" name="player4Nickname" required placeholder="Nickname *" 
-                                       class="px-4 py-2 bg-gray-500 rounded border border-gray-400 focus:border-orange-500 text-white">
-                            </div>
-                        </div>
+                <!-- Additional Info -->
+                <div class="border-b pb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">📝 Informasi Tambahan</h2>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Catatan Khusus (Opsional)</label>
+                        <textarea id="notes" rows="3"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                  placeholder="Contoh: Sablon nama di bagian belakang, warna khusus, dll."></textarea>
                     </div>
                 </div>
 
-                <!-- Agreement -->
-                <div class="bg-gray-700 rounded-xl p-6">
-                    <div class="flex items-start space-x-3">
-                        <input type="checkbox" id="agreement" name="agreement" required 
-                               class="mt-1 w-5 h-5 text-orange-500 bg-gray-600 border-gray-500 rounded focus:ring-orange-500">
-                        <label for="agreement" class="text-sm">
-                            Saya menyetujui <strong>syarat dan ketentuan</strong> turnamen ini dan bertanggung jawab penuh atas data yang saya berikan. 
-                            Saya memahami bahwa pendaftaran ini mengikat dan tidak dapat dibatalkan setelah konfirmasi.
-                        </label>
+                <!-- Order Summary -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">💰 Ringkasan Pesanan</h3>
+                    <div id="orderSummary" class="space-y-2 text-gray-600">
+                        <p>Silakan lengkapi form untuk melihat ringkasan pesanan</p>
                     </div>
                 </div>
 
                 <!-- Submit Button -->
-                <div class="text-center">
-                    <button type="submit" id="submitBtn" 
-                            class="fire-gradient px-12 py-4 rounded-xl font-bold text-xl text-white hover:scale-105 transform transition-all duration-300 glow-effect ff-title">
-                        🚀 DAFTAR SEKARANG!
+                <div class="text-center pt-4">
+                    <button type="submit" 
+                            class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-lg transform hover:scale-105 transition-all duration-200 shadow-lg">
+                        🛒 Kirim Pesanan
                     </button>
                 </div>
             </form>
         </div>
 
         <!-- Success Message -->
-        <div id="successMessage" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-            <div class="bg-green-600 rounded-2xl p-8 text-center max-w-md mx-4 success-animation">
-                <div class="text-6xl mb-4">✅</div>
-                <h3 class="ff-title text-2xl font-bold mb-4">PENDAFTARAN BERHASIL!</h3>
-                <p class="mb-6">Squad Anda telah terdaftar. Kami akan menghubungi captain melalui WhatsApp untuk konfirmasi lebih lanjut.</p>
-                <button onclick="closeSuccessMessage()" 
-                        class="bg-white text-green-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
-                    TUTUP
-                </button>
-            </div>
+        <div id="successMessage" class="hidden bg-green-500 text-white p-6 rounded-lg text-center">
+            <h3 class="text-xl font-semibold mb-2">✅ Pesanan Berhasil Dikirim!</h3>
+            <p>Terima kasih! Pesanan Anda telah kami terima dan akan segera diproses.</p>
         </div>
 
-        <!-- Loading Overlay -->
-        <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-40">
-            <div class="bg-gray-800 rounded-2xl p-8 text-center">
-                <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-orange-500 mx-auto mb-4"></div>
-                <p class="text-xl font-semibold">Mengirim data pendaftaran...</p>
-            </div>
+        <!-- Instructions -->
+        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white">
+            <h3 class="text-lg font-semibold mb-3">📋 Petunjuk Penggunaan Google Apps Script:</h3>
+            <ol class="list-decimal list-inside space-y-2 text-sm">
+                <li>Buka Google Sheets dan buat spreadsheet baru</li>
+                <li>Buka Extensions → Apps Script</li>
+                <li>Hapus kode default dan paste kode yang saya berikan</li>
+                <li>Simpan project dan deploy sebagai web app</li>
+                <li>Copy URL deployment dan ganti di JavaScript di bawah</li>
+                <li>Set permissions untuk "Anyone" dapat mengakses</li>
+            </ol>
         </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 py-8 mt-12">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-400">© 2024 FREE FIRE Tournament. Semua hak dilindungi.</p>
-            <p class="text-sm text-gray-500 mt-2">Untuk informasi lebih lanjut, hubungi panitia melalui WhatsApp</p>
-        </div>
-    </footer>
+    </div>
 
     <script>
-        // Google Apps Script Web App URL - Ganti dengan URL Anda
-        const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
-        
-        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            
-            // Show loading
-            loadingOverlay.classList.remove('hidden');
-            submitBtn.disabled = true;
-            
-            // Collect form data
-            const formData = new FormData(this);
-            const data = {};
-            
-            // Convert FormData to regular object
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
+        // Konfigurasi - Ganti dengan URL Google Apps Script Anda
+        const GOOGLE_SCRIPT_URL = 'GANTI_DENGAN_URL_GOOGLE_APPS_SCRIPT_ANDA';
+
+        // Price mapping
+        const prices = {
+            'Kaos Polos': 75000,
+            'Kaos Sablon': 95000,
+            'Kemeja Formal': 150000,
+            'Kemeja Casual': 120000,
+            'Hoodie': 180000,
+            'Jaket': 200000
+        };
+
+        // Update order summary when form changes
+        function updateOrderSummary() {
+            const productType = document.getElementById('productType').value;
+            const size = document.getElementById('size').value;
+            const color = document.getElementById('color').value;
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+
+            const summaryDiv = document.getElementById('orderSummary');
+
+            if (productType && size && color) {
+                const unitPrice = prices[productType] || 0;
+                const totalPrice = unitPrice * quantity;
+
+                summaryDiv.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span>Produk:</span>
+                            <span class="font-medium">${productType}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Ukuran:</span>
+                            <span class="font-medium">${size}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Warna:</span>
+                            <span class="font-medium">${color}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Jumlah:</span>
+                            <span class="font-medium">${quantity} pcs</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Harga Satuan:</span>
+                            <span class="font-medium">Rp ${unitPrice.toLocaleString('id-ID')}</span>
+                        </div>
+                        <hr class="my-2">
+                        <div class="flex justify-between text-lg font-semibold text-gray-800">
+                            <span>Total:</span>
+                            <span>Rp ${totalPrice.toLocaleString('id-ID')}</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                summaryDiv.innerHTML = '<p>Silakan lengkapi form untuk melihat ringkasan pesanan</p>';
             }
-            
-            // Add timestamp
-            data.timestamp = new Date().toLocaleString('id-ID');
-            
+        }
+
+        // Add event listeners for real-time updates
+        ['productType', 'size', 'color', 'quantity'].forEach(id => {
+            document.getElementById(id).addEventListener('change', updateOrderSummary);
+        });
+
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = {
+                timestamp: new Date().toLocaleString('id-ID'),
+                customerName: document.getElementById('customerName').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                address: document.getElementById('address').value,
+                productType: document.getElementById('productType').value,
+                size: document.getElementById('size').value,
+                color: document.getElementById('color').value,
+                quantity: document.getElementById('quantity').value,
+                notes: document.getElementById('notes').value,
+                unitPrice: prices[document.getElementById('productType').value],
+                totalPrice: prices[document.getElementById('productType').value] * parseInt(document.getElementById('quantity').value)
+            };
+
+            // Show loading state
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '⏳ Mengirim...';
+            submitBtn.disabled = true;
+
             try {
-                // Send to Google Sheets
-                const response = await fetch(https://script.google.com/macros/s/AKfycbyL6LxrnvK3iHB8FsgbI4PJ0uVc2NhaK0pWxdhSy54W89xo2VYCccel01p22ReGGHfi/exec, {
+                // Send to Google Sheets (uncomment when you have the script URL
+                const response = await fetch(https://script.google.com/macros/s/AKfycbzDU6BjTTYajWpdp6a8JWXnnGF77BZVDPwZ8gE5EOOh2NLeNwTL6A2iEPsEQkwUYHO1/exec, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify(formData)
                 });
-                
-                // Hide loading
-                loadingOverlay.classList.add('hidden');
-                
-                // Show success message
-                document.getElementById('successMessage').classList.remove('hidden');
-                
-                // Reset form
-                this.reset();
-                
-            } catch (error) {
-                console.error('Error:', error);
-                loadingOverlay.classList.add('hidden');
-                alert('Terjadi kesalahan saat mengirim data. Silakan coba lagi.');
-            }
-            
-            submitBtn.disabled = false;
-        });
-        
-        function closeSuccessMessage() {
-            document.getElementById('successMessage').classList.add('hidden');
-        }
-        
-        // Form validation enhancements
-        document.querySelectorAll('input[required]').forEach(input => {
-            input.addEventListener('blur', function() {
-                if (!this.value.trim()) {
-                    this.classList.add('border-red-500');
-                } else {
-                    this.classList.remove('border-red-500');
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
-            });
-        });
-        
-        // Phone number formatting
-        document.querySelector('input[name="captainPhone"]').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.startsWith('0')) {
-                e.target.value = value;
-            } else if (value.startsWith('62')) {
-                e.target.value = '0' + value.substring(2);
+                */
+
+                // Show success message
+                document.getElementById('orderForm').style.display = 'none';
+                document.getElementById('successMessage').classList.remove('hidden');
+
+                // Log data for demo purposes (remove in production)
+                console.log('Data pesanan:', formData);
+
+            } catch (error) {
+                alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+                console.error('Error:', error);
+            } finally {
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         });
+
+        // Initialize
+        updateOrderSummary();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982eca4ac5f640a8',t:'MTc1ODUxMjUyNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982eda6625dd9c80',t:'MTc1ODUxMzE4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
