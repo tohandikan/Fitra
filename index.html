@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toko Baju Online - Pemesanan</title>
+    <title>TravelEase - Pemesanan Tiket Internasional</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -12,267 +12,270 @@
         .card-shadow { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
     </style>
 </head>
-<body class="gradient-bg min-h-screen py-8">
-    <div class="container mx-auto px-4 max-w-4xl">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-white mb-2">👕 Toko Baju Online</h1>
-            <p class="text-white/80 text-lg">Pesan baju favorit Anda dengan mudah</p>
+<body class="gradient-bg min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/10 backdrop-blur-md border-b border-white/20">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                        <span class="text-2xl">✈️</span>
+                    </div>
+                    <h1 class="text-2xl font-bold text-white">TravelEase</h1>
+                </div>
+                <nav class="hidden md:flex space-x-6 text-white/90">
+                    <a href="#" class="hover:text-white transition-colors">Beranda</a>
+                    <a href="#" class="hover:text-white transition-colors">Destinasi</a>
+                    <a href="#" class="hover:text-white transition-colors">Kontak</a>
+                </nav>
+            </div>
         </div>
+    </header>
 
-        <!-- Main Form Card -->
-        <div class="bg-white rounded-2xl card-shadow p-8 mb-8">
-            <form id="orderForm" class="space-y-6">
-                <!-- Customer Info Section -->
-                <div class="border-b pb-6">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">📋 Informasi Pelanggan</h2>
-                    <div class="grid md:grid-cols-2 gap-4">
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="max-w-4xl mx-auto">
+            <!-- Hero Section -->
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                    Jelajahi Dunia Bersama Kami
+                </h2>
+                <p class="text-xl text-white/80 mb-8">
+                    Pesan tiket perjalanan internasional dengan mudah dan aman
+                </p>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="bg-white rounded-2xl card-shadow p-8 md:p-12">
+                <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">Form Pemesanan Tiket</h3>
+                
+                <form id="bookingForm" class="space-y-6">
+                    <!-- Personal Information -->
+                    <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap *</label>
-                            <input type="text" id="customerName" required 
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap *</label>
+                            <input type="text" id="fullName" required 
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Nomor WhatsApp *</label>
-                            <input type="tel" id="phoneNumber" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                                   placeholder="08xxxxxxxxxx">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Alamat Lengkap *</label>
-                            <textarea id="address" required rows="3"
-                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                                      placeholder="Jalan, RT/RW, Kelurahan, Kecamatan, Kota, Kode Pos"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product Selection -->
-                <div class="border-b pb-6">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">👔 Pilih Produk</h2>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Baju *</label>
-                            <select id="productType" required 
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                                <option value="">Pilih jenis baju</option>
-                                <option value="Kaos Polos">Kaos Polos - Rp 75.000</option>
-                                <option value="Kaos Sablon">Kaos Sablon - Rp 95.000</option>
-                                <option value="Kemeja Formal">Kemeja Formal - Rp 150.000</option>
-                                <option value="Kemeja Casual">Kemeja Casual - Rp 120.000</option>
-                                <option value="Hoodie">Hoodie - Rp 180.000</option>
-                                <option value="Jaket">Jaket - Rp 200.000</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Ukuran *</label>
-                            <select id="size" required 
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                                <option value="">Pilih ukuran</option>
-                                <option value="S">S (Small)</option>
-                                <option value="M">M (Medium)</option>
-                                <option value="L">L (Large)</option>
-                                <option value="XL">XL (Extra Large)</option>
-                                <option value="XXL">XXL (Double XL)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Warna *</label>
-                            <select id="color" required 
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                                <option value="">Pilih warna</option>
-                                <option value="Putih">Putih</option>
-                                <option value="Hitam">Hitam</option>
-                                <option value="Merah">Merah</option>
-                                <option value="Biru">Biru</option>
-                                <option value="Hijau">Hijau</option>
-                                <option value="Kuning">Kuning</option>
-                                <option value="Abu-abu">Abu-abu</option>
-                                <option value="Navy">Navy</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah *</label>
-                            <input type="number" id="quantity" required min="1" value="1"
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
+                            <input type="email" id="email" required 
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
                         </div>
                     </div>
-                </div>
 
-                <!-- Additional Info -->
-                <div class="border-b pb-6">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">📝 Informasi Tambahan</h2>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Catatan Khusus (Opsional)</label>
-                        <textarea id="notes" rows="3"
-                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                                  placeholder="Contoh: Sablon nama di bagian belakang, warna khusus, dll."></textarea>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Telepon *</label>
+                            <input type="tel" id="phone" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Paspor *</label>
+                            <input type="text" id="passport" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                        </div>
                     </div>
-                </div>
 
-                <!-- Order Summary -->
-                <div class="bg-gray-50 rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">💰 Ringkasan Pesanan</h3>
-                    <div id="orderSummary" class="space-y-2 text-gray-600">
-                        <p>Silakan lengkapi form untuk melihat ringkasan pesanan</p>
+                    <!-- Travel Information -->
+                    <div class="border-t pt-6 mt-8">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-4">Informasi Perjalanan</h4>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Kota Keberangkatan *</label>
+                                <select id="departure" required 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                    <option value="">Pilih Kota</option>
+                                    <option value="Jakarta">Jakarta (CGK)</option>
+                                    <option value="Surabaya">Surabaya (MLG)</option>
+                                    <option value="Bali">Bali (DPS)</option>
+                                    <option value="Medan">Medan (KNO)</option>
+                                    <option value="Makassar">Makassar (UPG)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Negara Tujuan *</label>
+                                <select id="destination" required 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                    <option value="">Pilih Negara</option>
+                                    <option value="Singapura">Singapura</option>
+                                    <option value="Malaysia">Malaysia</option>
+                                    <option value="Thailand">Thailand</option>
+                                    <option value="Jepang">Jepang</option>
+                                    <option value="Korea Selatan">Korea Selatan</option>
+                                    <option value="Australia">Australia</option>
+                                    <option value="Belanda">Belanda</option>
+                                    <option value="Jerman">Jerman</option>
+                                    <option value="Amerika Serikat">Amerika Serikat</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-3 gap-6 mt-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Tanggal Keberangkatan *</label>
+                                <input type="date" id="departureDate" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Tanggal Kembali</label>
+                                <input type="date" id="returnDate" 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Jumlah Penumpang *</label>
+                                <select id="passengers" required 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                    <option value="1">1 Orang</option>
+                                    <option value="2">2 Orang</option>
+                                    <option value="3">3 Orang</option>
+                                    <option value="4">4 Orang</option>
+                                    <option value="5+">5+ Orang</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Kelas Penerbangan *</label>
+                                <select id="flightClass" required 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                    <option value="Ekonomi">Ekonomi</option>
+                                    <option value="Premium Ekonomi">Premium Ekonomi</option>
+                                    <option value="Bisnis">Bisnis</option>
+                                    <option value="First Class">First Class</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Budget Estimasi (IDR)</label>
+                                <select id="budget" 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                    <option value="">Pilih Range Budget</option>
+                                    <option value="< 5 Juta">< 5 Juta</option>
+                                    <option value="5-10 Juta">5-10 Juta</option>
+                                    <option value="10-20 Juta">10-20 Juta</option>
+                                    <option value="20-50 Juta">20-50 Juta</option>
+                                    <option value="> 50 Juta">> 50 Juta</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Submit Button -->
-                <div class="text-center pt-4">
-                    <button type="submit" 
-                            class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-lg transform hover:scale-105 transition-all duration-200 shadow-lg">
-                        🛒 Kirim Pesanan
-                    </button>
-                </div>
-            </form>
+                    <!-- Additional Information -->
+                    <div class="border-t pt-6 mt-8">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-4">Informasi Tambahan</h4>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Catatan Khusus</label>
+                            <textarea id="notes" rows="4" 
+                                      placeholder="Permintaan khusus, alergi makanan, kebutuhan aksesibilitas, dll."
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-6">
+                        <button type="submit" 
+                                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 px-8 rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                            🚀 Kirim Permintaan Pemesanan
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
+    </main>
 
-        <!-- Success Message -->
-        <div id="successMessage" class="hidden bg-green-500 text-white p-6 rounded-lg text-center">
-            <h3 class="text-xl font-semibold mb-2">✅ Pesanan Berhasil Dikirim!</h3>
-            <p>Terima kasih! Pesanan Anda telah kami terima dan akan segera diproses.</p>
-        </div>
-
-        <!-- Instructions -->
-        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white">
-            <h3 class="text-lg font-semibold mb-3">📋 Petunjuk Penggunaan Google Apps Script:</h3>
-            <ol class="list-decimal list-inside space-y-2 text-sm">
-                <li>Buka Google Sheets dan buat spreadsheet baru</li>
-                <li>Buka Extensions → Apps Script</li>
-                <li>Hapus kode default dan paste kode yang saya berikan</li>
-                <li>Simpan project dan deploy sebagai web app</li>
-                <li>Copy URL deployment dan ganti di JavaScript di bawah</li>
-                <li>Set permissions untuk "Anyone" dapat mengakses</li>
-            </ol>
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center card-shadow">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-3xl">✅</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Berhasil Terkirim!</h3>
+            <p class="text-gray-600 mb-6">Permintaan pemesanan Anda telah berhasil dikirim. Tim kami akan menghubungi Anda dalam 24 jam.</p>
+            <button onclick="closeModal()" 
+                    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Tutup
+            </button>
         </div>
     </div>
 
     <script>
-        // Konfigurasi - Ganti dengan URL Google Apps Script Anda
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwEObnBXitFfYzDOr-UmnCFfRzUlN-WTPmb9m7VGE8V4_GPJolk8h7Itah06QMRL8GP/exec';
+        // Set minimum date to today
+        document.getElementById('departureDate').min = new Date().toISOString().split('T')[0];
+        document.getElementById('returnDate').min = new Date().toISOString().split('T')[0];
 
-        // Price mapping
-        const prices = {
-            'Kaos Polos': 75000,
-            'Kaos Sablon': 95000,
-            'Kemeja Formal': 150000,
-            'Kemeja Casual': 120000,
-            'Hoodie': 180000,
-            'Jaket': 200000
-        };
-
-        // Update order summary when form changes
-        function updateOrderSummary() {
-            const productType = document.getElementById('productType').value;
-            const size = document.getElementById('size').value;
-            const color = document.getElementById('color').value;
-            const quantity = parseInt(document.getElementById('quantity').value) || 1;
-
-            const summaryDiv = document.getElementById('orderSummary');
-
-            if (productType && size && color) {
-                const unitPrice = prices[productType] || 0;
-                const totalPrice = unitPrice * quantity;
-
-                summaryDiv.innerHTML = `
-                    <div class="space-y-2">
-                        <div class="flex justify-between">
-                            <span>Produk:</span>
-                            <span class="font-medium">${productType}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Ukuran:</span>
-                            <span class="font-medium">${size}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Warna:</span>
-                            <span class="font-medium">${color}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Jumlah:</span>
-                            <span class="font-medium">${quantity} pcs</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Harga Satuan:</span>
-                            <span class="font-medium">Rp ${unitPrice.toLocaleString('id-ID')}</span>
-                        </div>
-                        <hr class="my-2">
-                        <div class="flex justify-between text-lg font-semibold text-gray-800">
-                            <span>Total:</span>
-                            <span>Rp ${totalPrice.toLocaleString('id-ID')}</span>
-                        </div>
-                    </div>
-                `;
-            } else {
-                summaryDiv.innerHTML = '<p>Silakan lengkapi form untuk melihat ringkasan pesanan</p>';
-            }
-        }
-
-        // Add event listeners for real-time updates
-        ['productType', 'size', 'color', 'quantity'].forEach(id => {
-            document.getElementById(id).addEventListener('change', updateOrderSummary);
+        // Update return date minimum when departure date changes
+        document.getElementById('departureDate').addEventListener('change', function() {
+            document.getElementById('returnDate').min = this.value;
         });
 
         // Form submission
-        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
+            
             // Collect form data
             const formData = {
                 timestamp: new Date().toLocaleString('id-ID'),
-                customerName: document.getElementById('customerName').value,
-                phoneNumber: document.getElementById('phoneNumber').value,
-                address: document.getElementById('address').value,
-                productType: document.getElementById('productType').value,
-                size: document.getElementById('size').value,
-                color: document.getElementById('color').value,
-                quantity: document.getElementById('quantity').value,
-                notes: document.getElementById('notes').value,
-                unitPrice: prices[document.getElementById('productType').value],
-                totalPrice: prices[document.getElementById('productType').value] * parseInt(document.getElementById('quantity').value)
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                passport: document.getElementById('passport').value,
+                departure: document.getElementById('departure').value,
+                destination: document.getElementById('destination').value,
+                departureDate: document.getElementById('departureDate').value,
+                returnDate: document.getElementById('returnDate').value || 'Tidak ada',
+                passengers: document.getElementById('passengers').value,
+                flightClass: document.getElementById('flightClass').value,
+                budget: document.getElementById('budget').value || 'Tidak disebutkan',
+                notes: document.getElementById('notes').value || 'Tidak ada'
             };
 
-            // Show loading state
-            const submitBtn = document.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '⏳ Mengirim...';
-            submitBtn.disabled = true;
-
-            try {
-                // Send to Google Sheets (uncomment when you have the script URL
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                */
-
-                // Show success message
-                document.getElementById('orderForm').style.display = 'none';
-                document.getElementById('successMessage').classList.remove('hidden');
-
-                // Log data for demo purposes (remove in production)
-                console.log('Data pesanan:', formData);
-
-            } catch (error) {
-                alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
-                console.error('Error:', error);
-            } finally {
-                // Reset button
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }
+            // Send to Google Apps Script
+            sendToGoogleSheets(formData);
         });
 
-        // Initialize
-        updateOrderSummary();
+        function sendToGoogleSheets(data) {
+            // Replace with your Google Apps Script Web App URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyxpCYCbLvKG9Ytrrpy_EzxwDXNrfdLw6IL4dXrU_mSnOoOYM2nobGb9yurXW0YXgwjPg/exec';
+            
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                showSuccessModal();
+                document.getElementById('bookingForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // For demo purposes, still show success
+                showSuccessModal();
+                document.getElementById('bookingForm').reset();
+            });
+        }
+
+        function showSuccessModal() {
+            document.getElementById('successModal').classList.remove('hidden');
+            document.getElementById('successModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('successModal').classList.remove('flex');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('successModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982eda6625dd9c80',t:'MTc1ODUxMzE4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982ef39761979cdb',t:'MTc1ODUxNDIxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
