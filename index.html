@@ -533,7 +533,7 @@
                     <h3 class="text-lg font-bold mb-4">Kontak</h3>
                     <ul class="space-y-2 text-gray-400">
                         <li>📍 Makassar, Indonesia</li>
-                        <li>📞 +62 21 1234 5678</li>
+                        <li>📞 +62 823 9360 1515</li>
                         <li>📧 info@bolaticket.com</li>
                         <li>🕒 24/7 Customer Service</li>
                     </ul>
@@ -692,6 +692,8 @@
         document.getElementById('ticketCategory').addEventListener('change', calculateTotal);
         document.getElementById('ticketQuantity').addEventListener('change', calculateTotal);
 
+        // GANTI URL INI DENGAN URL GOOGLE APPS SCRIPT ANDA
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyxQyqiUtHqzFsah4iH_1MO5cr_hYNgskEmzCNGy1yONnNIKS34x6EMEdWiNqryzut45Q/exec';
         // Form submission
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -719,8 +721,16 @@
                 totalPrice: document.getElementById('totalPrice').textContent
             };
 
-            // Simulate API call (replace with actual Google Sheets integration)
-            setTimeout(() => {
+            // Send data to Google Sheets
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
                 // Reset loading state
                 submitText.classList.remove('hidden');
                 loadingSpinner.classList.add('hidden');
@@ -732,7 +742,7 @@
                 successDiv.innerHTML = `
                     <div class="text-xl font-bold mb-2">🎉 Pesanan Berhasil!</div>
                     <p>Terima kasih ${formData.fullName}! Pesanan tiket Anda telah diterima.</p>
-                    <p class="text-sm mt-2">E-ticket akan dikirim ke email Anda dalam 5-10 menit.</p>
+                    <p class="text-sm mt-2">Data telah tersimpan dan e-ticket akan dikirim ke email Anda.</p>
                 `;
                 
                 const modalContent = document.querySelector('.modal-content');
@@ -743,9 +753,17 @@
                     closeBookingModal();
                     successDiv.remove();
                 }, 3000);
+            })
+            .catch(error => {
+                // Reset loading state
+                submitText.classList.remove('hidden');
+                loadingSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
 
-                console.log('Form Data:', formData); // For debugging
-            }, 2000);
+                // Show error message
+                alert('Terjadi kesalahan saat mengirim data. Silakan coba lagi.');
+                console.error('Error:', error);
+            });
         });
 
         // Close modal when clicking outside
@@ -791,5 +809,5 @@
             observer.observe(el);
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98476b0857775f69',t:'MTc1ODc3MDc2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98477b9bc1501d6d',t:'MTc1ODc3MTQ0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
