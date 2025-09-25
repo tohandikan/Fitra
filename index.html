@@ -3,279 +3,793 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelEase - Pemesanan Tiket Internasional</title>
+    <title>BolaTicket - Tiket Nonton Bola Terbaik</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .card-shadow { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        body {
+            box-sizing: border-box;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .ticket-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ticket-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6, #06b6d4);
+        }
+        
+        .price-tag {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            transform: rotate(-5deg);
+            box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            animation: successPulse 0.5s ease-out;
+        }
+        
+        @keyframes successPulse {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
-<body class="gradient-bg min-h-screen">
-    <!-- Header -->
-    <header class="bg-white/10 backdrop-blur-md border-b border-white/20">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                        <span class="text-2xl">✈️</span>
-                    </div>
-                    <h1 class="text-2xl font-bold text-white">TravelEase</h1>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold gradient-text">⚽ BolaTicket</div>
                 </div>
-                <nav class="hidden md:flex space-x-6 text-white/90">
-                    <a href="#" class="hover:text-white transition-colors">Beranda</a>
-                    <a href="#" class="hover:text-white transition-colors">Destinasi</a>
-                    <a href="#" class="hover:text-white transition-colors">Kontak</a>
-                </nav>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Beranda</a>
+                        <a href="#about" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Tentang</a>
+                        <a href="#tickets" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Tiket</a>
+                        <a href="#contact" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Kontak</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-blue-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
-    </header>
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#home" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Beranda</a>
+                <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Tentang</a>
+                <a href="#tickets" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Tiket</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Kontak</a>
+            </div>
+        </div>
+    </nav>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-12">
-        <div class="max-w-4xl mx-auto">
-            <!-- Hero Section -->
-            <div class="text-center mb-12">
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
-                    Jelajahi Dunia Bersama Kami
-                </h2>
-                <p class="text-xl text-white/80 mb-8">
-                    Pesan tiket perjalanan internasional dengan mudah dan aman
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 floating-animation">
+                    Nonton Bola Jadi Lebih Seru! ⚽
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">
+                    Dapatkan tiket pertandingan sepak bola terbaik dengan harga terjangkau
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="scrollToSection('tickets')" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105">
+                        Pesan Tiket Sekarang
+                    </button>
+                    <button onclick="scrollToSection('about')" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-blue-600 transition-all">
+                        Pelajari Lebih Lanjut
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold gradient-text mb-4">Tentang BolaTicket</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Kami adalah platform terpercaya untuk pemesanan tiket pertandingan sepak bola di Indonesia. 
+                    Dengan pengalaman lebih dari 10 tahun, kami telah melayani jutaan penggemar sepak bola.
                 </p>
             </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="text-center fade-in">
+                    <div class="feature-icon">🎫</div>
+                    <h3 class="text-xl font-bold mb-4">Tiket Resmi</h3>
+                    <p class="text-gray-600">Semua tiket yang kami jual adalah tiket resmi dari penyelenggara pertandingan</p>
+                </div>
+                <div class="text-center fade-in">
+                    <div class="feature-icon">💳</div>
+                    <h3 class="text-xl font-bold mb-4">Pembayaran Aman</h3>
+                    <p class="text-gray-600">Sistem pembayaran yang aman dan terpercaya dengan berbagai metode pembayaran</p>
+                </div>
+                <div class="text-center fade-in">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="text-xl font-bold mb-4">E-Ticket</h3>
+                    <p class="text-gray-600">Dapatkan e-ticket langsung di email Anda setelah pembayaran berhasil</p>
+                </div>
+            </div>
 
-            <!-- Booking Form -->
-            <div class="bg-white rounded-2xl card-shadow p-8 md:p-12">
-                <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">Form Pemesanan Tiket</h3>
-                
-                <form id="bookingForm" class="space-y-6">
-                    <!-- Personal Information -->
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap *</label>
-                            <input type="text" id="fullName" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
-                            <input type="email" id="email" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                        </div>
+            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-8">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold gradient-text mb-4">Mengapa Memilih Kami?</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center">
+                                <span class="text-green-500 mr-3">✓</span>
+                                <span>Harga tiket terjangkau dan transparan</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-green-500 mr-3">✓</span>
+                                <span>Customer service 24/7</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-green-500 mr-3">✓</span>
+                                <span>Refund 100% jika pertandingan dibatalkan</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-green-500 mr-3">✓</span>
+                                <span>Akses ke semua stadion di Indonesia</span>
+                            </li>
+                        </ul>
                     </div>
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Telepon *</label>
-                            <input type="tel" id="phone" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Paspor *</label>
-                            <input type="text" id="passport" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                        </div>
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🏆</div>
+                        <div class="text-2xl font-bold text-blue-600">1,000,000+</div>
+                        <div class="text-gray-600">Tiket Terjual</div>
                     </div>
-
-                    <!-- Travel Information -->
-                    <div class="border-t pt-6 mt-8">
-                        <h4 class="text-xl font-semibold text-gray-800 mb-4">Informasi Perjalanan</h4>
-                        
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Kota Keberangkatan *</label>
-                                <select id="departure" required 
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                                    <option value="">Pilih Kota</option>
-                                    <option value="Jakarta">Jakarta (CGK)</option>
-                                    <option value="Surabaya">Surabaya (MLG)</option>
-                                    <option value="Bali">Bali (DPS)</option>
-                                    <option value="Medan">Medan (KNO)</option>
-                                    <option value="Makassar">Makassar (UPG)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Negara Tujuan *</label>
-                                <select id="destination" required 
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                                    <option value="">Pilih Negara</option>
-                                    <option value="Singapura">Singapura</option>
-                                    <option value="Malaysia">Malaysia</option>
-                                    <option value="Thailand">Thailand</option>
-                                    <option value="Jepang">Jepang</option>
-                                    <option value="Korea Selatan">Korea Selatan</option>
-                                    <option value="Australia">Australia</option>
-                                    <option value="Belanda">Belanda</option>
-                                    <option value="Jerman">Jerman</option>
-                                    <option value="Amerika Serikat">Amerika Serikat</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="grid md:grid-cols-3 gap-6 mt-6">
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Tanggal Keberangkatan *</label>
-                                <input type="date" id="departureDate" required 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Tanggal Kembali</label>
-                                <input type="date" id="returnDate" 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Jumlah Penumpang *</label>
-                                <select id="passengers" required 
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                                    <option value="1">1 Orang</option>
-                                    <option value="2">2 Orang</option>
-                                    <option value="3">3 Orang</option>
-                                    <option value="4">4 Orang</option>
-                                    <option value="5+">5+ Orang</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="grid md:grid-cols-2 gap-6 mt-6">
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Kelas Penerbangan *</label>
-                                <select id="flightClass" required 
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                                    <option value="Ekonomi">Ekonomi</option>
-                                    <option value="Premium Ekonomi">Premium Ekonomi</option>
-                                    <option value="Bisnis">Bisnis</option>
-                                    <option value="First Class">First Class</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Budget Estimasi (IDR)</label>
-                                <select id="budget" 
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                                    <option value="">Pilih Range Budget</option>
-                                    <option value="< 5 Juta">< 5 Juta</option>
-                                    <option value="5-10 Juta">5-10 Juta</option>
-                                    <option value="10-20 Juta">10-20 Juta</option>
-                                    <option value="20-50 Juta">20-50 Juta</option>
-                                    <option value="> 50 Juta">> 50 Juta</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Additional Information -->
-                    <div class="border-t pt-6 mt-8">
-                        <h4 class="text-xl font-semibold text-gray-800 mb-4">Informasi Tambahan</h4>
-                        
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Catatan Khusus</label>
-                            <textarea id="notes" rows="4" 
-                                      placeholder="Permintaan khusus, alergi makanan, kebutuhan aksesibilitas, dll."
-                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="pt-6">
-                        <button type="submit" 
-                                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 px-8 rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
-                            🚀 Kirim Permintaan Pemesanan
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <!-- Success Modal -->
-    <div id="successModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
-        <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center card-shadow">
-            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span class="text-3xl">✅</span>
+    <!-- Tickets Section -->
+    <section id="tickets" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold gradient-text mb-4">Pilih Tiket Favorit Anda</h2>
+                <p class="text-xl text-gray-600">Berbagai pilihan pertandingan menarik menanti Anda</p>
             </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Berhasil Terkirim!</h3>
-            <p class="text-gray-600 mb-6">Permintaan pemesanan Anda telah berhasil dikirim. Tim kami akan menghubungi Anda dalam 24 jam.</p>
-            <button onclick="closeModal()" 
-                    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Tutup
-            </button>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Ticket 1 -->
+                <div class="ticket-card card-hover p-6">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🔥</div>
+                        <h3 class="text-xl font-bold">Persija vs Persib</h3>
+                        <p class="text-gray-600">Stadion Utama Gelora Bung Karno</p>
+                        <p class="text-sm text-gray-500">Sabtu, 15 Juni 2024 - 19:30 WIB</p>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune VIP</span>
+                            <span class="price-tag">Rp 500.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Utama</span>
+                            <span class="font-bold text-blue-600">Rp 300.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Ekonomi</span>
+                            <span class="font-bold text-blue-600">Rp 150.000</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Persija vs Persib', 'Stadion Utama Gelora Bung Karno', 'Sabtu, 15 Juni 2024 - 19:30 WIB')" 
+                            class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">
+                        Pesan Sekarang
+                    </button>
+                </div>
+
+                <!-- Ticket 2 -->
+                <div class="ticket-card card-hover p-6">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">⚡</div>
+                        <h3 class="text-xl font-bold">Arema FC vs Bali United</h3>
+                        <p class="text-gray-600">Stadion Kanjuruhan</p>
+                        <p class="text-sm text-gray-500">Minggu, 16 Juni 2024 - 15:30 WIB</p>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune VIP</span>
+                            <span class="price-tag">Rp 400.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Utama</span>
+                            <span class="font-bold text-blue-600">Rp 250.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Ekonomi</span>
+                            <span class="font-bold text-blue-600">Rp 100.000</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Arema FC vs Bali United', 'Stadion Kanjuruhan', 'Minggu, 16 Juni 2024 - 15:30 WIB')" 
+                            class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">
+                        Pesan Sekarang
+                    </button>
+                </div>
+
+                <!-- Ticket 3 -->
+                <div class="ticket-card card-hover p-6">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🌟</div>
+                        <h3 class="text-xl font-bold">PSM Makassar vs Persebaya</h3>
+                        <p class="text-gray-600">Stadion Mattoanging</p>
+                        <p class="text-sm text-gray-500">Jumat, 21 Juni 2024 - 20:00 WIB</p>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune VIP</span>
+                            <span class="price-tag">Rp 350.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Utama</span>
+                            <span class="font-bold text-blue-600">Rp 200.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Ekonomi</span>
+                            <span class="font-bold text-blue-600">Rp 75.000</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('PSM Makassar vs Persebaya', 'Stadion Mattoanging', 'Jumat, 21 Juni 2024 - 20:00 WIB')" 
+                            class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">
+                        Pesan Sekarang
+                    </button>
+                </div>
+
+                <!-- Ticket 4 -->
+                <div class="ticket-card card-hover p-6">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🎯</div>
+                        <h3 class="text-xl font-bold">Borneo FC vs PSIS Semarang</h3>
+                        <p class="text-gray-600">Stadion Segiri</p>
+                        <p class="text-sm text-gray-500">Sabtu, 22 Juni 2024 - 19:00 WIB</p>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune VIP</span>
+                            <span class="price-tag">Rp 300.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Utama</span>
+                            <span class="font-bold text-blue-600">Rp 180.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Ekonomi</span>
+                            <span class="font-bold text-blue-600">Rp 80.000</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Borneo FC vs PSIS Semarang', 'Stadion Segiri', 'Sabtu, 22 Juni 2024 - 19:00 WIB')" 
+                            class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">
+                        Pesan Sekarang
+                    </button>
+                </div>
+
+                <!-- Ticket 5 -->
+                <div class="ticket-card card-hover p-6">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">💎</div>
+                        <h3 class="text-xl font-bold">Madura United vs Persita</h3>
+                        <p class="text-gray-600">Stadion Gelora Bangkalan</p>
+                        <p class="text-sm text-gray-500">Minggu, 23 Juni 2024 - 16:00 WIB</p>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune VIP</span>
+                            <span class="price-tag">Rp 280.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Utama</span>
+                            <span class="font-bold text-blue-600">Rp 160.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Ekonomi</span>
+                            <span class="font-bold text-blue-600">Rp 70.000</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Madura United vs Persita', 'Stadion Gelora Bangkalan', 'Minggu, 23 Juni 2024 - 16:00 WIB')" 
+                            class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">
+                        Pesan Sekarang
+                    </button>
+                </div>
+
+                <!-- Ticket 6 -->
+                <div class="ticket-card card-hover p-6">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🚀</div>
+                        <h3 class="text-xl font-bold">Persik Kediri vs Dewa United</h3>
+                        <p class="text-gray-600">Stadion Brawijaya</p>
+                        <p class="text-sm text-gray-500">Selasa, 25 Juni 2024 - 20:30 WIB</p>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune VIP</span>
+                            <span class="price-tag">Rp 320.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Utama</span>
+                            <span class="font-bold text-blue-600">Rp 190.000</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <span>Tribune Ekonomi</span>
+                            <span class="font-bold text-blue-600">Rp 85.000</span>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('Persik Kediri vs Dewa United', 'Stadion Brawijaya', 'Selasa, 25 Juni 2024 - 20:30 WIB')" 
+                            class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">
+                        Pesan Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold gradient-text mb-4">Hubungi Kami</h2>
+                <p class="text-xl text-gray-600">Tim customer service kami siap membantu Anda 24/7</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl">
+                    <div class="text-4xl mb-4">📞</div>
+                    <h3 class="text-xl font-bold mb-2">Telepon</h3>
+                    <p class="text-gray-600">+62 21 1234 5678</p>
+                    <p class="text-sm text-gray-500">24 jam setiap hari</p>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl">
+                    <div class="text-4xl mb-4">📧</div>
+                    <h3 class="text-xl font-bold mb-2">Email</h3>
+                    <p class="text-gray-600">info@bolaticket.com</p>
+                    <p class="text-sm text-gray-500">Respon dalam 1 jam</p>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl">
+                    <div class="text-4xl mb-4">💬</div>
+                    <h3 class="text-xl font-bold mb-2">WhatsApp</h3>
+                    <p class="text-gray-600">+62 823 9360 1515</p>
+                    <p class="text-sm text-gray-500">Chat langsung</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold mb-4">⚽ BolaTicket</div>
+                    <p class="text-gray-400 mb-4">Platform terpercaya untuk pemesanan tiket pertandingan sepak bola di Indonesia.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">📘</a>
+                        <a href="#" class="text-gray-400 hover:text-white">📷</a>
+                        <a href="#" class="text-gray-400 hover:text-white">🐦</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Layanan</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Tiket Liga 1</a></li>
+                        <li><a href="#" class="hover:text-white">Tiket Liga 2</a></li>
+                        <li><a href="#" class="hover:text-white">Tiket Internasional</a></li>
+                        <li><a href="#" class="hover:text-white">Paket VIP</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Bantuan</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Cara Pesan</a></li>
+                        <li><a href="#" class="hover:text-white">Kebijakan Refund</a></li>
+                        <li><a href="#" class="hover:text-white">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Kontak</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>📍 Makassar, Indonesia</li>
+                        <li>📞 +62 21 1234 5678</li>
+                        <li>📧 info@bolaticket.com</li>
+                        <li>🕒 24/7 Customer Service</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 BolaTicket. Semua hak dilindungi undang-undang.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white p-6 rounded-t-2xl">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold">Pesan Tiket</h2>
+                    <button onclick="closeBookingModal()" class="text-white hover:text-gray-200 text-2xl">&times;</button>
+                </div>
+                <div id="matchInfo" class="mt-4 text-sm opacity-90"></div>
+            </div>
+            
+            <form id="bookingForm" class="p-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Nama Lengkap *</label>
+                        <input type="text" id="fullName" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Email *</label>
+                        <input type="email" id="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">No. Telepon *</label>
+                        <input type="tel" id="phone" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Kategori Tiket *</label>
+                        <select id="ticketCategory" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Pilih Kategori</option>
+                            <option value="vip">Tribune VIP</option>
+                            <option value="utama">Tribune Utama</option>
+                            <option value="ekonomi">Tribune Ekonomi</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Jumlah Tiket *</label>
+                        <select id="ticketQuantity" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Pilih Jumlah</option>
+                            <option value="1">1 Tiket</option>
+                            <option value="2">2 Tiket</option>
+                            <option value="3">3 Tiket</option>
+                            <option value="4">4 Tiket</option>
+                            <option value="5">5 Tiket</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Metode Pembayaran *</label>
+                        <select id="paymentMethod" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Pilih Metode</option>
+                            <option value="transfer">Transfer Bank</option>
+                            <option value="ewallet">E-Wallet (OVO/GoPay/DANA)</option>
+                            <option value="credit">Kartu Kredit</option>
+                            <option value="debit">Kartu Debit</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Catatan Tambahan</label>
+                    <textarea id="notes" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Masukkan catatan khusus jika ada..."></textarea>
+                </div>
+
+                <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">Total Harga:</span>
+                        <span id="totalPrice" class="text-2xl font-bold text-blue-600">Rp 0</span>
+                    </div>
+                    <p class="text-sm text-gray-600">*Harga sudah termasuk biaya admin</p>
+                </div>
+
+                <div class="mt-6 flex gap-4">
+                    <button type="button" onclick="closeBookingModal()" class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-bold hover:bg-gray-400 transition-colors">
+                        Batal
+                    </button>
+                    <button type="submit" class="flex-1 bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">
+                        <span id="submitText">Pesan Tiket</span>
+                        <span id="loadingSpinner" class="loading hidden"></span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
     <script>
-        // Set minimum date to today
-        document.getElementById('departureDate').min = new Date().toISOString().split('T')[0];
-        document.getElementById('returnDate').min = new Date().toISOString().split('T')[0];
-
-        // Update return date minimum when departure date changes
-        document.getElementById('departureDate').addEventListener('change', function() {
-            document.getElementById('returnDate').min = this.value;
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
         });
+
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Ticket prices data
+        const ticketPrices = {
+            'Persija vs Persib': { vip: 500000, utama: 300000, ekonomi: 150000 },
+            'Arema FC vs Bali United': { vip: 400000, utama: 250000, ekonomi: 100000 },
+            'PSM Makassar vs Persebaya': { vip: 350000, utama: 200000, ekonomi: 75000 },
+            'Borneo FC vs PSIS Semarang': { vip: 300000, utama: 180000, ekonomi: 80000 },
+            'Madura United vs Persita': { vip: 280000, utama: 160000, ekonomi: 70000 },
+            'Persik Kediri vs Dewa United': { vip: 320000, utama: 190000, ekonomi: 85000 }
+        };
+
+        let currentMatch = '';
+
+        // Open booking modal
+        function openBookingModal(match, stadium, datetime) {
+            currentMatch = match;
+            document.getElementById('matchInfo').innerHTML = `
+                <strong>${match}</strong><br>
+                📍 ${stadium}<br>
+                🕒 ${datetime}
+            `;
+            document.getElementById('bookingModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close booking modal
+        function closeBookingModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('bookingForm').reset();
+            document.getElementById('totalPrice').textContent = 'Rp 0';
+        }
+
+        // Calculate total price
+        function calculateTotal() {
+            const category = document.getElementById('ticketCategory').value;
+            const quantity = parseInt(document.getElementById('ticketQuantity').value) || 0;
+            
+            if (category && quantity && currentMatch && ticketPrices[currentMatch]) {
+                const basePrice = ticketPrices[currentMatch][category];
+                const total = basePrice * quantity;
+                document.getElementById('totalPrice').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            } else {
+                document.getElementById('totalPrice').textContent = 'Rp 0';
+            }
+        }
+
+        // Add event listeners for price calculation
+        document.getElementById('ticketCategory').addEventListener('change', calculateTotal);
+        document.getElementById('ticketQuantity').addEventListener('change', calculateTotal);
 
         // Form submission
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Show loading state
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const submitText = document.getElementById('submitText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            submitText.classList.add('hidden');
+            loadingSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+
             // Collect form data
             const formData = {
-                timestamp: new Date().toLocaleString('id-ID'),
+                timestamp: new Date().toISOString(),
+                match: currentMatch,
                 fullName: document.getElementById('fullName').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                passport: document.getElementById('passport').value,
-                departure: document.getElementById('departure').value,
-                destination: document.getElementById('destination').value,
-                departureDate: document.getElementById('departureDate').value,
-                returnDate: document.getElementById('returnDate').value || 'Tidak ada',
-                passengers: document.getElementById('passengers').value,
-                flightClass: document.getElementById('flightClass').value,
-                budget: document.getElementById('budget').value || 'Tidak disebutkan',
-                notes: document.getElementById('notes').value || 'Tidak ada'
+                ticketCategory: document.getElementById('ticketCategory').value,
+                ticketQuantity: document.getElementById('ticketQuantity').value,
+                paymentMethod: document.getElementById('paymentMethod').value,
+                notes: document.getElementById('notes').value,
+                totalPrice: document.getElementById('totalPrice').textContent
             };
 
-            // Send to Google Apps Script
-            sendToGoogleSheets(formData);
+            // Simulate API call (replace with actual Google Sheets integration)
+            setTimeout(() => {
+                // Reset loading state
+                submitText.classList.remove('hidden');
+                loadingSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
+
+                // Show success message
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-message';
+                successDiv.innerHTML = `
+                    <div class="text-xl font-bold mb-2">🎉 Pesanan Berhasil!</div>
+                    <p>Terima kasih ${formData.fullName}! Pesanan tiket Anda telah diterima.</p>
+                    <p class="text-sm mt-2">E-ticket akan dikirim ke email Anda dalam 5-10 menit.</p>
+                `;
+                
+                const modalContent = document.querySelector('.modal-content');
+                modalContent.insertBefore(successDiv, modalContent.firstChild);
+
+                // Auto close modal after 3 seconds
+                setTimeout(() => {
+                    closeBookingModal();
+                    successDiv.remove();
+                }, 3000);
+
+                console.log('Form Data:', formData); // For debugging
+            }, 2000);
         });
-
-        function sendToGoogleSheets(data) {
-            // Replace with your Google Apps Script Web App URL
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyxpCYCbLvKG9Ytrrpy_EzxwDXNrfdLw6IL4dXrU_mSnOoOYM2nobGb9yurXW0YXgwjPg/exec';
-            
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            .then(() => {
-                showSuccessModal();
-                document.getElementById('bookingForm').reset();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // For demo purposes, still show success
-                showSuccessModal();
-                document.getElementById('bookingForm').reset();
-            });
-        }
-
-        function showSuccessModal() {
-            document.getElementById('successModal').classList.remove('hidden');
-            document.getElementById('successModal').classList.add('flex');
-        }
-
-        function closeModal() {
-            document.getElementById('successModal').classList.add('hidden');
-            document.getElementById('successModal').classList.remove('flex');
-        }
 
         // Close modal when clicking outside
-        document.getElementById('successModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('bookingModal');
+            if (e.target === modal) {
+                closeBookingModal();
             }
         });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.card-hover, .fade-in').forEach(el => {
+            observer.observe(el);
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982ef39761979cdb',t:'MTc1ODUxNDIxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98476b0857775f69',t:'MTc1ODc3MDc2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
